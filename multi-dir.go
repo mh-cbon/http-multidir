@@ -1,12 +1,12 @@
 package httpmultidir
 
 import (
-  http "net/http"
-  "errors"
-  "os"
-  "strings"
-  "path"
-  "path/filepath"
+	"errors"
+	http "net/http"
+	"os"
+	"path"
+	"path/filepath"
+	"strings"
 )
 
 // A Multidir implements FileSystem using the native file system restricted to a
@@ -23,20 +23,20 @@ func (d Multidir) Open(name string) (http.File, error) {
 		strings.Contains(name, "\x00") {
 		return nil, errors.New("http: invalid character in file path")
 	}
-  var dirs []string
-  dirs = d
-  for _, dir := range dirs {
-    if dir!="" {
-      f, err := os.Open(filepath.Join(dir, filepath.FromSlash(path.Clean("/"+name))))
-      if err!=nil {
-        continue
-      }
-      d, err := f.Stat()
-      if d.IsDir() {
-        continue
-      }
-      return f, nil
-    }
-  }
+	var dirs []string
+	dirs = d
+	for _, dir := range dirs {
+		if dir != "" {
+			f, err := os.Open(filepath.Join(dir, filepath.FromSlash(path.Clean("/"+name))))
+			if err != nil {
+				continue
+			}
+			d, err := f.Stat()
+			if d.IsDir() {
+				continue
+			}
+			return f, nil
+		}
+	}
 	return nil, NotFound
 }
