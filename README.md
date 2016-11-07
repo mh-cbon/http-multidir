@@ -1,5 +1,7 @@
 # http-multidir
 
+[![GoDoc](https://godoc.org/github.com/mh-cbon/http-multidir?status.svg)](https://godoc.org/github.com/mh-cbon/http-multidir)
+
 Serve multiple static directories under the same prefix.
 
 Unlike `http.Dir`, `httpmultidir.Multidir` will not list directories content

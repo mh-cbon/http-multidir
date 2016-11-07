@@ -16,8 +16,13 @@ import (
 // An empty value in Multidir is always ignored.
 type Multidir []string
 
+// NotFound is an error which represents a not found resource, it is likely to return a 404.
 var NotFound = os.ErrNotExist
 
+// Open locate name within available directories.
+// The first directory to contain a corresponding file,
+// returns that resource.
+// If the matched name is a directory, it returns NotFound error.
 func (d Multidir) Open(name string) (http.File, error) {
 	if filepath.Separator != '/' && strings.ContainsRune(name, filepath.Separator) ||
 		strings.Contains(name, "\x00") {
