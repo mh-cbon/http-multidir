@@ -1,0 +1,42 @@
+package httpmultidir
+
+import (
+  http "net/http"
+  "errors"
+  "os"
+  "strings"
+  "path"
+  "path/filepath"
+)
+
+// A Multidir implements FileSystem using the native file system restricted to a
+// set of specific directory tree to treat in order.
+//
+// An empty Multidir always returns not found.
+// An empty value in Multidir is always ignored.
+type Multidir []string
+
+var NotFound = os.ErrNotExist
+
+func (d Multidir) Open(name string) (http.File, error) {
+	if filepath.Separator != '/' && strings.ContainsRune(name, filepath.Separator) ||
+		strings.Contains(name, "\x00") {
+		return nil, errors.New("http: invalid character in file path")
+	}
+  var dirs []string
+  dirs = d
+  for _, dir := range dirs {
+    if dir!="" {
+      f, err := os.Open(filepath.Join(dir, filepath.FromSlash(path.Clean("/"+name))))
+      if err!=nil {
+        continue
+      }
+      d, err := f.Stat()
+      if d.IsDir() {
+        continue
+      }
+      return f, nil
+    }
+  }
+	return nil, NotFound
+}
