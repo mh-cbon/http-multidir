@@ -1,4 +1,4 @@
-package main_test
+package httpmultidir_test
 
 import (
   "net/http"
