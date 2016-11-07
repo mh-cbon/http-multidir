@@ -9,6 +9,21 @@ import (
 	"strings"
 )
 
+/*
+package main
+
+import (
+  "net/http"
+  "github.com/mh-cbon/http-multidir"
+)
+
+func main() {
+  dirs := []string{"static/", "other_static/", "upload/",}
+  fileServer := http.FileServer(httpmultidir.Multidir(dirs))
+  http.Handle("/prefixed/", http.StripPrefix("/prefixed/", fileServer))
+}
+*/
+
 // A Multidir implements FileSystem using the native file system restricted to a
 // set of specific directory tree to treat in order.
 //
