@@ -10,7 +10,7 @@ import (
 )
 
 // A Multidir implements FileSystem using the native file system restricted to a
-// set of specific directory tree to treat in order.
+// set of specific directory list to treat in order.
 //
 // An empty Multidir always returns not found.
 // An empty value in Multidir is always ignored.
