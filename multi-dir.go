@@ -2,7 +2,7 @@ package httpmultidir
 
 import (
 	"errors"
-	http "net/http"
+	"net/http"
 	"os"
 	"path"
 	"path/filepath"
